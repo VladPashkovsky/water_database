@@ -1,0 +1,3 @@
+server/node_modules
+server/.prettierrc.json
+server/.env
