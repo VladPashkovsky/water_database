@@ -2,7 +2,7 @@ class UserController {
 
   async register(req, res, next) {
     try {
-      return res.json({message: 'Register response'})
+      return res.json({ message: 'Register response' })
     } catch (e) {
       next(e)
     }
@@ -10,7 +10,7 @@ class UserController {
 
   async login(req, res, next) {
     try {
-      return res.json({message: 'Login response'})
+      return res.json({ message: 'Login response' })
     } catch (e) {
       next(e)
     }
@@ -18,7 +18,7 @@ class UserController {
 
   async current(req, res, next) {
     try {
-      return res.json({message: 'Current'})
+      return res.json({ message: 'Current' })
     } catch (e) {
       next(e)
     }
