@@ -10,10 +10,10 @@ class UserController {
     try {
       const errors = validationResult(req)
       if (!errors.isEmpty()) {
-        return next(ApiError.BadRequest('Validation Error', errors.array()))
+        return next(ApiError.BadRequest('Invalid email or password', errors.array()))
       }
 
-      const {name, email, password} = req.body
+      const { name, email, password } = req.body
 
       const registeredUserByName = await prisma.user.findFirst({
         where: { name },
@@ -22,19 +22,11 @@ class UserController {
         where: { email },
       })
 
-      //  if (registeredUserByName) {
-      //   throw ApiError.RegisterWrongName()
-      // }
-      //  if (registeredUserByEmail) {
-      //   throw ApiError.RegisterWrongEmail()
-      // }
-
-      if (!name || !email || !password) {
-        return res.status(400).json({ message: 'Input required fields, please' })
-      } else if (registeredUserByName) {
-        return res.status(400).json({ message: 'User with this name already exists' })
-      } else if (registeredUserByEmail) {
-        return res.status(400).json({ message: 'User with this email already exists' })
+      if (registeredUserByName) {
+        return next(ApiError.RegisterWrongName())
+      }
+      if (registeredUserByEmail) {
+        return next(ApiError.RegisterWrongEmail())
       }
 
       const salt = await bcrypt.genSalt(10)
@@ -63,7 +55,7 @@ class UserController {
 
   async login(req, res, next) {
     try {
-      const {email, password} = req.body
+      const { email, password } = req.body
 
       if (!email || !password) {
         return res.status(400).json({ message: 'Input required fields, please' })
