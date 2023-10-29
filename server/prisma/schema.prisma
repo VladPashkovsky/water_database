@@ -16,6 +16,7 @@ model User {
   password       String
   name           String
   createdProduct Water[]
+  Token          Token[]
 }
 
 model Water {
@@ -27,4 +28,10 @@ model Water {
   imageUrl    String
   user        User   @relation(fields: [userId], references: [id])
   userId      String
+}
+
+model Token {
+  user         User   @relation(fields: [userId], references: [id])
+  refreshToken String @unique
+  userId       String
 }
