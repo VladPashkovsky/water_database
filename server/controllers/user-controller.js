@@ -3,6 +3,7 @@ const { validationResult } = require('express-validator')
 const ApiError = require('../exceptions/api-errors')
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken')
+const userService = require('../services/user-service')
 
 class UserController {
 
@@ -15,39 +16,44 @@ class UserController {
 
       const { name, email, password } = req.body
 
-      const registeredUserByName = await prisma.user.findFirst({
-        where: { name },
-      })
-      const registeredUserByEmail = await prisma.user.findFirst({
-        where: { email },
-      })
+      const userData = await userService.registration(name, email, password)
+      res.cookie('refreshToken', userData.refreshToken,
+        { maxAge: 30 * 24 * 60 * 60 * 1000, httpOnly: true })
+      return res.json(userData)
 
-      if (registeredUserByName) {
-        return next(ApiError.RegisterWrongName())
-      }
-      if (registeredUserByEmail) {
-        return next(ApiError.RegisterWrongEmail())
-      }
+      // const registeredUserByName = await prisma.user.findFirst({
+      //   where: { name },
+      // })
+      // const registeredUserByEmail = await prisma.user.findFirst({
+      //   where: { email },
+      // })
+      //
+      // if (registeredUserByName) {
+      //   return next(ApiError.RegisterWrongName())
+      // }
+      // if (registeredUserByEmail) {
+      //   return next(ApiError.RegisterWrongEmail())
+      // }
 
-      const salt = await bcrypt.genSalt(10)
-      const hashedPassword = await bcrypt.hash(password, salt)
-
-      const user = await prisma.user.create({
-        data: { name, email, password: hashedPassword },
-      })
-
-      const secret = process.env.JWT_SECRET
-
-      if (user && secret) {
-        res.status(201).json({
-          id: user.id,
-          email: user.email,
-          name,
-          token: jwt.sign({ id: user.id }, secret, { expiresIn: '30d' }),
-        })
-      } else {
-        return res(ApiError.BadRequest('Bad Request...', errors.array()))
-      }
+      // const salt = await bcrypt.genSalt(10)
+      // const hashedPassword = await bcrypt.hash(password, salt)
+      //
+      // const user = await prisma.user.create({
+      //   data: { name, email, password: hashedPassword },
+      // })
+      //
+      // const secret = process.env.JWT_SECRET
+      //
+      // if (user && secret) {
+      //   res.status(201).json({
+      //     id: user.id,
+      //     email: user.email,
+      //     name,
+      //     token: jwt.sign({ id: user.id }, secret, { expiresIn: '30d' }),
+      //   })
+      // } else {
+      //   return res(ApiError.BadRequest('Bad Request...', errors.array()))
+      // }
     } catch (e) {
       next(e)
     }
@@ -92,6 +98,22 @@ class UserController {
       res.status(200).json(req.user)
     } catch (e) {
       next(e)
+    }
+  }
+
+  async refresh(req, res, next) {
+    try {
+
+    } catch (e) {
+
+    }
+  }
+
+  async logout(req, res, next) {
+    try {
+
+    } catch (e) {
+
     }
   }
 
