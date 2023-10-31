@@ -59,6 +59,19 @@ class UserService {
 
     return { ...tokens, user: userDto }
   }
+
+  //==============================================================================================
+
+  // const userDto = new UserDto(user)
+  // const tokens = tokenService.generateTokens({ ...userDto })
+  // await tokenService.saveToken(userDto.id, tokens.refreshToken)
+  //
+  // return { ...tokens, user: userDto }
+
+  async exit(refreshToken) {
+    const token = tokenService.removeToken(refreshToken)
+    return token
+  }
 }
 
 module.exports = new UserService()
