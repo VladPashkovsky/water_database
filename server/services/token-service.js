@@ -13,8 +13,8 @@ class TokenService {
 //=======================================================================================================
   validateAccessToken(token) {
     try {
-      const userData = jwt.verify(token, process.env.JWT_ACCESS_SECRET)
-      return userData
+      const tokenData = jwt.verify(token, process.env.JWT_ACCESS_SECRET)
+      return tokenData
     } catch (e) {
       return null
     }
@@ -23,8 +23,8 @@ class TokenService {
 //=========================================================================================================
   validateRefreshToken(token) {
     try {
-      const userData = jwt.verify(token, process.env.JWT_REFRESH_SECRET)
-      return userData
+      const tokenData = jwt.verify(token, process.env.JWT_REFRESH_SECRET)
+      return tokenData
     } catch (e) {
       return null
     }
@@ -44,36 +44,6 @@ class TokenService {
   }
 
 //=====================================================================================================
-
-  async updateToken(userId, refreshToken) {
-    // const tokenData = await prisma.token.findUnique({
-    //   where: { refreshToken },
-    // })
-    try {
-      await prisma.token.delete({
-        where: { refreshToken },
-      })
-
-      // const token = await prisma.token.create({
-      //   data: { refreshToken, userId }
-      // })
-      // return token
-    } catch (e) {
-    }
-
-    // try {
-    //   const tokenData = await prisma.token.update({
-    //     where: {refreshToken},
-    //     data: {refreshToken: 'some new'}
-    //   })
-    //   return tokenData
-    // } catch (e) {
-    //
-    // }
-
-  }
-
-//====================================================================================================
   async removeToken(refreshToken) {
     try {
       const tokenData = await prisma.token.delete({
@@ -86,8 +56,13 @@ class TokenService {
 
 //=====================================================================================================
   async findToken(refreshToken) {
-    const tokenData = await tokenModel.findOne({ refreshToken })
-    return tokenData
+    try {
+      const tokenData = await prisma.token.findUnique({
+        where: { refreshToken },
+      })
+      return tokenData
+    } catch (e) {
+    }
   }
 }
 
