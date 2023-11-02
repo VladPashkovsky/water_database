@@ -32,64 +32,56 @@ class TokenService {
 
 //========================================================================================================
   async saveToken(userId, refreshToken) {
-
-    // const tokenData = await tokenModel.findOne({ user: userId })
-    // if (tokenData) {
-    //   tokenData.refreshToken = refreshToken
-    //   return tokenData.save()
-    // }
-
-    const tokenData = await prisma.token.findUnique({
-      where: { refreshToken: refreshToken }
-    })
-
-    if (tokenData) {
-      await prisma.token.delete({
-        where: { refreshToken },
+    try {
+      const tokenData = await prisma.token.upsert({
+        where: { userId },
+        update: { refreshToken },
+        create: { refreshToken, userId },
       })
+      return tokenData
+    } catch (e) {
     }
-
-    const token = await prisma.token.create({
-      data: { refreshToken, userId },
-    })
-    return token
   }
 
 //=====================================================================================================
 
-  async updateToken(userId ,refreshToken) {
+  async updateToken(userId, refreshToken) {
     // const tokenData = await prisma.token.findUnique({
     //   where: { refreshToken },
     // })
-    //
-    // if (tokenData) {
-    //   await prisma.token.delete({
-    //     data: { refreshToken },
-    //   })
-    // }
-    // const updateUser = await prisma.user.update({
-    //   where: {
-    //     email: 'viola@prisma.io',
-    //   },
-    //   data: {
-    //     name: 'Viola the Magnificent',
-    //   },
-    // })
+    try {
+      await prisma.token.delete({
+        where: { refreshToken },
+      })
 
-    const tokenData = await prisma.token.update({
-      where: {userId}, data: {refreshToken}
-    })
-    return tokenData
+      // const token = await prisma.token.create({
+      //   data: { refreshToken, userId }
+      // })
+      // return token
+    } catch (e) {
+    }
+
+    // try {
+    //   const tokenData = await prisma.token.update({
+    //     where: {refreshToken},
+    //     data: {refreshToken: 'some new'}
+    //   })
+    //   return tokenData
+    // } catch (e) {
+    //
+    // }
+
   }
 
 //====================================================================================================
   async removeToken(refreshToken) {
-
-    const tokenData = await prisma.token.delete({
-      where: { refreshToken },
-    })
-
-    return tokenData
+    try {
+      const tokenData = await prisma.token.delete({
+        where: { refreshToken },
+      })
+      return tokenData
+    } catch (e) {
+    }
   }
 
 //=====================================================================================================
