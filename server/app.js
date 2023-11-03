@@ -8,6 +8,7 @@ require('dotenv').config()
 const PORT = process.env.PORT || 8000
 
 const usersRouter = require('./routes/users')
+const watersRouter = require('./routes/waters')
 
 const app = express()
 
@@ -18,6 +19,7 @@ app.use(cookieParser())
 app.use(cors())
 
 app.use('/api/users', usersRouter)
+app.use('/api/waters', watersRouter)
 
 app.use(errorMiddleware)
 
