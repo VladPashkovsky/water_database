@@ -1,7 +1,8 @@
 const ApiError = require('../exceptions/api-errors')
 const tokenService = require('../services/token-service')
+const { prisma } = require('../prisma/prisma-client')
 
-module.exports = function(req, res, next) {
+module.exports = async function(req, res, next) {
   try {
     const authorizationHeader = req.headers.authorization
     if (!authorizationHeader) {
@@ -15,7 +16,12 @@ module.exports = function(req, res, next) {
     if (!userData) {
       return ApiError.UnauthorizedError()
     }
-    req.user = userData
+    const { id } = userData
+    const user = await prisma.user.findUnique({
+      where: { id },
+    })
+
+    req.user = user
     next()
   } catch (e) {
     return ApiError.UnauthorizedError()

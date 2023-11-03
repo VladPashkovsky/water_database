@@ -5,7 +5,7 @@ const waterController = require('../controllers/water-controller')
 
 router.get('/', authMiddleware, waterController.getAllWaters)
 router.get('/:id', authMiddleware, waterController.getWaterById)
-router.post('add', authMiddleware, waterController.addWater)
+router.post('/add', authMiddleware, waterController.addWater)
 router.put('/edit/:id', authMiddleware, waterController.editWater)
 router.delete('/remove/:id', authMiddleware, waterController.removeWater)
 
