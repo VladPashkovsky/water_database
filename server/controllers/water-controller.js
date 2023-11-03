@@ -1,4 +1,5 @@
 const { prisma } = require('../prisma/prisma-client')
+const ApiError = require('../exceptions/api-errors')
 
 class WaterController {
 
@@ -7,7 +8,8 @@ class WaterController {
       const waters = await prisma.water.findMany()
       res.status(200).json(waters)
     } catch (e) {
-      res.status(500).json({ message: `Failed to get list: ${e}` })
+      // res.status(500).json({ message: `Failed to get list: ${e}` })
+      return next(ApiError.BadRequest('Failed to get list:', e.array()))
     }
   }
 
@@ -20,7 +22,8 @@ class WaterController {
 
       res.status(200).json(water)
     } catch (e) {
-      return res.status(500).json({ message: `Error while getting data: ${e}` })
+      // return res.status(500).json({ message: `Error while getting data: ${e}` })
+      return next(ApiError.BadRequest('Error while getting data:', e.array()))
     }
   }
 
@@ -39,7 +42,8 @@ class WaterController {
 
       return res.status(201).json(water)
     } catch (e) {
-      return res.status(500).json({ message: `Error while adding data: ${e}` })
+      // return res.status(500).json({ message: `Error while adding data: ${e}` })
+      return next(ApiError.BadRequest('Error while getting data:', e.array()))
     }
   }
 
@@ -54,7 +58,8 @@ class WaterController {
 
       return res.status(204).json('OK')
     } catch (e) {
-      return res.status(500).json({ message: `Error while editing data: ${e}` })
+      // return res.status(500).json({ message: `Error while editing data: ${e}` })
+      return next(ApiError.BadRequest('Error while getting data:', e.array()))
     }
   }
 
@@ -68,7 +73,8 @@ class WaterController {
 
       return res.status(204).json('OK')
     } catch (e) {
-      return res.status(500).json({ message: `Error while removing data: ${e}` })
+      // return res.status(500).json({ message: `Error while removing data: ${e}` })
+      return next(ApiError.BadRequest('Error while removing data:', e.array()))
     }
   }
 
