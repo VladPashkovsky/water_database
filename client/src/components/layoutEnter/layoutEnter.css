@@ -1,0 +1,12 @@
+.container_layout_enter {
+    margin: 0;
+    padding: 0;
+    background-image: url("./login-wallNew.webp");
+    background-size: 100% 100%;
+    background-repeat: no-repeat;
+    background-position: 50% 50%;
+    /*background: url();*/
+    /*background-size: cover;*/
+    /*width: 100%;*/
+    /*height: 100vh;*/
+}

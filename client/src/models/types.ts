@@ -23,3 +23,10 @@ export interface Token {
   refreshToken: string,
   user: User
 }
+
+export type ErrorWithMessage = {
+  status: number,
+  data: {
+    message: string
+  }
+}

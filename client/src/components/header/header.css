@@ -1,0 +1,27 @@
+.header {
+    /*padding: 20px 0;*/
+    /*display: flex;*/
+    /*align-items: center;*/
+    /*justify-content: space-between;*/
+    /*margin-bottom: 20px;*/
+}
+
+.layoutHeader {
+    background: #444444;
+    color: #ffffff;
+    padding: 20px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+.teamIcon {
+    font-size: 26px;
+    margin-right: 12px;
+    margin-left: 12px;
+}
+
+.water {
+    color: white;
+}
