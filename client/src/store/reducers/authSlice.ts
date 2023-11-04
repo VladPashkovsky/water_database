@@ -1,4 +1,4 @@
-import { User } from '@prisma/client'
+import { User } from '../../models/types.ts'
 import { createSlice } from '@reduxjs/toolkit'
 import { apiAuth } from '../../services/api.ts'
 

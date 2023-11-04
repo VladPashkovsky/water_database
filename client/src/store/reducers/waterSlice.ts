@@ -1,4 +1,4 @@
-import { Water } from '@prisma/client'
+import {Water} from '../../models/types.ts'
 import { createSlice } from '@reduxjs/toolkit'
 import { apiWater } from '../../services/api.ts'
 

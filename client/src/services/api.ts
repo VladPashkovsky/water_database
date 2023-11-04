@@ -1,6 +1,6 @@
-import { createApi, fetchBaseQuery} from '@reduxjs/toolkit/dist/query/react'
+import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react'
 import { RootState } from '../store/store.ts'
-import { User, Water } from '@prisma/client'
+import { User, Water } from '../models/types.ts'
 
 export type UserDataLogin = Omit<User, 'id' | 'name'>
 export type UserData = Omit<User, 'id'>
@@ -25,16 +25,16 @@ export const apiAuth = createApi({
   refetchOnMountOrArgChange: true,
   endpoints: (build) => ({
     login: build.mutation<ResponseLoginData, UserDataLogin>({
-      query: (userDataLogin) => ({ url: '/user/login', method: 'POST', body: userDataLogin }),
+      query: (userDataLogin) => ({ url: '/users/login', method: 'POST', body: userDataLogin }),
       invalidatesTags: ['Auth'],
     }),
     register: build.mutation<ResponseLoginData, UserData>({
-      query: (userData) => ({ url: '/user/register', method: 'POST', body: userData }),
+      query: (userData) => ({ url: '/users/register', method: 'POST', body: userData }),
       invalidatesTags: ['Auth'],
     }),
     current: build.query<ResponseLoginData, void>({
-      query: () => ({ url: '/user/current' }),
-      providesTags: result => ['Auth'],
+      query: () => ({ url: '/users/current' }),
+      providesTags: ['Auth'],
     }),
   }),
 })
@@ -51,23 +51,23 @@ export const apiWater = createApi({
   refetchOnMountOrArgChange: true,
   endpoints: (build) => ({
     getAllWaters: build.query<Water[], void>({
-      query: () => ({ url: '/water' }),
-      providesTags: result => ['Water'],
+      query: () => ({ url: '/waters' }),
+      providesTags: ['Water'],
     }),
     getWaterById: build.query<Water, string>({
-      query: (id) => ({ url: `/water/${id}` }),
-      providesTags: result => ['Water'],
+      query: (id) => ({ url: `/waters/${id}` }),
+      providesTags: ['Water'],
     }),
     addWater: build.mutation<Water, Water>({
-      query: (water) => ({ url: `/water/add`, method: 'POST', body: water }),
+      query: (water) => ({ url: `/waters/add`, method: 'POST', body: water }),
       invalidatesTags: ['Water'],
     }),
     editWater: build.mutation<string, Water>({
-      query: (water) => ({ url: `/water/edit/${water.id}`, method: 'PUT', body: water }),
+      query: (water) => ({ url: `/waters/edit/${water.id}`, method: 'PUT', body: water }),
       invalidatesTags: ['Water'],
     }),
     removeWater: build.mutation<string, string>({
-      query: (id) => ({ url: `/water/remove/${id}`, method: 'DELETE' }),
+      query: (id) => ({ url: `/waters/remove/${id}`, method: 'DELETE' }),
       invalidatesTags: ['Water'],
     }),
   }),
