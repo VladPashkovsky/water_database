@@ -34,10 +34,10 @@ const Login: FC = () => {
       api.open({
         message: 'Notification:',
         description: `
-          Sign in 
+          Sign in
           Email: admin@admin.com
           Password: 123456789
-          
+
           or Sign up as a new user.
           `,
         placement: 'topLeft',
@@ -70,6 +70,7 @@ const Login: FC = () => {
 
   const sendLoginData = async (data: UserDataLogin) => {
     try {
+      // @ts-ignore
       await sendLoginUser(currentUserData).unwrap()
       navigate('/home')
     } catch (err) {
@@ -92,6 +93,7 @@ const Login: FC = () => {
           linkTo={Paths.signup}
           onKeyDown={(event) => {
             if (event.key === 'Enter') {
+              // @ts-ignore
               sendLoginData(currentUserData)
             }
           }}

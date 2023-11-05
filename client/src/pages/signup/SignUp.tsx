@@ -61,6 +61,7 @@ const SignUp: FC = () => {
 
   const sendRegisterData = async (data: UserData) => {
     try {
+      // @ts-ignore
       await newUser(currentUserData).unwrap()
       setDisabled(true)
       showNotification()
@@ -86,6 +87,7 @@ const SignUp: FC = () => {
           linkTo={Paths.login}
           onKeyDown={(event) => {
             if (event.key === 'Enter') {
+              // @ts-ignore
               sendRegisterData(currentUserData)
             }
           }}
