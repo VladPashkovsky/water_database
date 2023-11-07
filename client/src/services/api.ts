@@ -1,22 +1,42 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react'
+import type { BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import { RootState } from '../store/store.ts'
 import { User, Water } from '../models/types.ts'
 
-export type UserDataLogin = Omit<User, 'id' | 'name'>
+export type UserDataLogin = Pick<User, 'email' | 'password'>
 export type UserData = Omit<User, 'id'>
 type ResponseLoginData = User & { token: string }
+export type AuthResponse = Pick<User, 'id' | 'email'> & { accessToken: string, refreshToken: string }
+
+export const API_URL = 'http://localhost:8000/api'
 
 const baseQuery = fetchBaseQuery({
-  baseUrl: 'http://localhost:8000/api',
-  prepareHeaders: (headers, { getState }) => {
-    const token = (getState() as RootState).authReducer.user?.token ||
-      localStorage.getItem('token')
-    token && headers.set('authorization', `Bearer ${token}`)
+  baseUrl: API_URL,
+  credentials: 'include',
+  prepareHeaders: (headers) => {
+    headers.set('authorization', `Bearer ${localStorage.getItem('token')}`)
     return headers
   },
 })
 
-// const baseQueryWithRetry = retry(baseQuery, {maxRetries: 1})
+// const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (args, api, extraOptions) => {
+//   let result = await baseQuery(args, api, extraOptions)
+//   if (result.error && result.error.status === 401) {
+//     // try to get a new token
+//     const refreshResult = await baseQuery(`${API_URL}/refresh`, api, extraOptions)
+//     if (refreshResult.data) {
+//       // store the new token
+//      localStorage.setItem('token', refreshResult.data.accessToken)
+//
+//       api.dispatch(tokenReceived(refreshResult.data))
+//       // retry the initial query
+//       result = await baseQuery(args, api, extraOptions)
+//     } else {
+//       api.dispatch(loggedOut())
+//     }
+//   }
+//   return result
+// }
 
 export const apiAuth = createApi({
   reducerPath: 'apiAuth',
@@ -24,11 +44,11 @@ export const apiAuth = createApi({
   tagTypes: ['Auth'],
   refetchOnMountOrArgChange: true,
   endpoints: (build) => ({
-    login: build.mutation<ResponseLoginData, UserDataLogin>({
+    login: build.mutation<AuthResponse, UserDataLogin>({
       query: (userDataLogin) => ({ url: '/users/login', method: 'POST', body: userDataLogin }),
       invalidatesTags: ['Auth'],
     }),
-    register: build.mutation<ResponseLoginData, UserData>({
+    register: build.mutation<AuthResponse, UserData>({
       query: (userData) => ({ url: '/users/register', method: 'POST', body: userData }),
       invalidatesTags: ['Auth'],
     }),
@@ -41,6 +61,42 @@ export const apiAuth = createApi({
 
 export const { useLoginMutation, useRegisterMutation, useCurrentQuery } = apiAuth
 export const { endpoints: { login, register, current } } = apiAuth
+
+// const baseQuery = fetchBaseQuery({
+//   baseUrl: 'http://localhost:8000/api',
+//   prepareHeaders: (headers, { getState }) => {
+//     const token = (getState() as RootState).authReducer.user?.token ||
+//       localStorage.getItem('token')
+//     token && headers.set('authorization', `Bearer ${token}`)
+//     return headers
+//   },
+// })
+
+// const baseQueryWithRetry = retry(baseQuery, {maxRetries: 1})
+
+// export const apiAuth = createApi({
+//   reducerPath: 'apiAuth',
+//   baseQuery: baseQuery,
+//   tagTypes: ['Auth'],
+//   refetchOnMountOrArgChange: true,
+//   endpoints: (build) => ({
+//     login: build.mutation<ResponseLoginData, UserDataLogin>({
+//       query: (userDataLogin) => ({ url: '/users/login', method: 'POST', body: userDataLogin }),
+//       invalidatesTags: ['Auth'],
+//     }),
+//     register: build.mutation<ResponseLoginData, UserData>({
+//       query: (userData) => ({ url: '/users/register', method: 'POST', body: userData }),
+//       invalidatesTags: ['Auth'],
+//     }),
+//     current: build.query<ResponseLoginData, void>({
+//       query: () => ({ url: '/users/current' }),
+//       providesTags: ['Auth'],
+//     }),
+//   }),
+// })
+//
+// export const { useLoginMutation, useRegisterMutation, useCurrentQuery } = apiAuth
+// export const { endpoints: { login, register, current } } = apiAuth
 
 //==============================================================================
 
