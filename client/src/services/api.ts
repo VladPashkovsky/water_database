@@ -6,37 +6,26 @@ import { User, Water } from '../models/types.ts'
 export type UserDataLogin = Pick<User, 'email' | 'password'>
 export type UserData = Omit<User, 'id'>
 type ResponseLoginData = User & { token: string }
-export type AuthResponse = Pick<User, 'id' | 'email'> & { accessToken: string, refreshToken: string }
+// export type AuthResponse = Pick<User, 'id' | 'email'| 'name'> & { accessToken: string, refreshToken: string }
+export type AuthResponse = User & { accessToken: string, refreshToken: string }
 
 export const API_URL = 'http://localhost:8000/api'
 
 const baseQuery = fetchBaseQuery({
   baseUrl: API_URL,
-  credentials: 'include',
-  prepareHeaders: (headers) => {
-    headers.set('authorization', `Bearer ${localStorage.getItem('token')}`)
+  // credentials: 'include',
+  // prepareHeaders: (headers) => {
+  //   headers.set('authorization', `Bearer ${localStorage.getItem('token')}`)
+  //   return headers
+  // },
+  prepareHeaders: (headers, { getState }) => {
+    const token = (getState() as RootState).authReducer.user?.accessToken ||
+      localStorage.getItem('token')
+    token && headers.set('authorization', `Bearer ${token}`)
     return headers
   },
 })
 
-// const baseQueryWithReauth: BaseQueryFn<string | FetchArgs, unknown, FetchBaseQueryError> = async (args, api, extraOptions) => {
-//   let result = await baseQuery(args, api, extraOptions)
-//   if (result.error && result.error.status === 401) {
-//     // try to get a new token
-//     const refreshResult = await baseQuery(`${API_URL}/refresh`, api, extraOptions)
-//     if (refreshResult.data) {
-//       // store the new token
-//      localStorage.setItem('token', refreshResult.data.accessToken)
-//
-//       api.dispatch(tokenReceived(refreshResult.data))
-//       // retry the initial query
-//       result = await baseQuery(args, api, extraOptions)
-//     } else {
-//       api.dispatch(loggedOut())
-//     }
-//   }
-//   return result
-// }
 
 export const apiAuth = createApi({
   reducerPath: 'apiAuth',
@@ -52,7 +41,7 @@ export const apiAuth = createApi({
       query: (userData) => ({ url: '/users/register', method: 'POST', body: userData }),
       invalidatesTags: ['Auth'],
     }),
-    current: build.query<ResponseLoginData, void>({
+    current: build.query<AuthResponse, void>({
       query: () => ({ url: '/users/current' }),
       providesTags: ['Auth'],
     }),

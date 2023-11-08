@@ -61,7 +61,6 @@ const Home: FC = () => {
   const defaultTitle = () => 'Here is title'
   const defaultFooter = () => 'Here is footer'
 
-  console.log(user)
 
 
   type TablePaginationPosition =

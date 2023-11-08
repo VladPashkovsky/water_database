@@ -9,9 +9,9 @@ interface RequireAuthProps {
 
 const RequireAuth: FC<RequireAuthProps> = ({ children }) => {
   const location = useLocation()
-  const { isAuth } = useAppSelector(state => state.authReducer)
+  const { isActivated } = useAppSelector(state => state.authReducer)
 
-  if (!isAuth) {
+  if (!isActivated) {
     return <Navigate to='/' state={{ from: location }} />
   }
 

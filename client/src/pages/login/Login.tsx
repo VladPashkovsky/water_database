@@ -70,7 +70,6 @@ const Login: FC = () => {
 
   const sendLoginData = async (data: UserDataLogin) => {
     try {
-      // @ts-ignore
       await sendLoginUser(currentUserData).unwrap()
       navigate('/home')
     } catch (err) {
@@ -93,7 +92,6 @@ const Login: FC = () => {
           linkTo={Paths.signup}
           onKeyDown={(event) => {
             if (event.key === 'Enter') {
-              // @ts-ignore
               sendLoginData(currentUserData)
             }
           }}

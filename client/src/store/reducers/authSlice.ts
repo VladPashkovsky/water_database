@@ -1,41 +1,6 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { apiAuth, AuthResponse } from '../../services/api.ts'
 
-// export interface AuthResponse {
-//   accessToken: string,
-//   refreshToken: string,
-//   user: IUser[]
-// }
-//
-// export interface IUser {
-//   id: string,
-//   name: string,
-//   email: string,
-//   isActivated: boolean,
-// }
-
-// interface initialInterface {
-//   user: IUser[],
-//   isActivated: (IUser['isActivated']),
-//   accessToken: (AuthResponse['accessToken']) | string,
-//   refreshToken: (AuthResponse['refreshToken'])
-// }
-
-// interface initialInterface {
-//   user: AuthResponse[],
-//   isActivated: boolean,
-//   accessToken: string,
-//   refreshToken: string
-// }
-
-// const initialState: AuthResponse = {
-//   id: '',
-//   email: '',
-//   isActivated: false,
-//   accessToken: '',
-//   refreshToken: ''
-// }
-
 interface AuthState {
   user: AuthResponse | null,
   isActivated: boolean
@@ -62,11 +27,10 @@ export const authSlice = createSlice({
         state.user = action.payload
         state.isActivated = true
       })
-      .addMatcher(apiAuth.endpoints.current.matchFulfilled, (state, action) => {
-        // state.user = action.payload
-        // state.isAuth = true
+      .addMatcher(apiAuth.endpoints.current.matchFulfilled, (state, action: PayloadAction<AuthResponse>) => {
+        state.user = action.payload
+        state.isActivated = true
       })
-
   },
 })
 
