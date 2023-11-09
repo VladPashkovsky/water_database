@@ -1,8 +1,5 @@
-const { prisma } = require('../prisma/prisma-client')
 const { validationResult } = require('express-validator')
 const ApiError = require('../exceptions/api-errors')
-const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
 const userService = require('../services/user-service')
 
 class UserController {

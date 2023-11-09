@@ -24,23 +24,6 @@ export interface Token {
   user: User
 }
 
-// export interface AuthResponse {
-//   id: string,
-//   email: string,
-//   password?: string,
-//   name?: string,
-//   isActivated: boolean,
-//   accessToken: string,
-//   refreshToken: string,
-// }
-//
-// export interface IUser {
-//   id: string,
-//   name: string,
-//   email: string,
-//   isActivated: boolean,
-// }
-
 export type ErrorWithMessage = {
   status: number,
   data: {

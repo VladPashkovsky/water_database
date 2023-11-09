@@ -1,8 +1,9 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit'
 import { apiAuth, AuthResponse } from '../../services/api.ts'
+import {User} from '../../models/types.ts'
 
 interface AuthState {
-  user: AuthResponse | null,
+  user: User & { accessToken: string, refreshToken: string } | null,
   isActivated: boolean
 }
 
