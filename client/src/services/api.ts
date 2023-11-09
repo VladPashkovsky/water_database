@@ -1,19 +1,17 @@
 import { createApi, fetchBaseQuery } from '@reduxjs/toolkit/dist/query/react'
-import type { BaseQueryFn, FetchArgs, FetchBaseQueryError } from '@reduxjs/toolkit/query'
 import { RootState } from '../store/store.ts'
 import { User, Water } from '../models/types.ts'
 
 export type UserDataLogin = Pick<User, 'email' | 'password'>
 export type UserData = Omit<User, 'id'>
 type ResponseLoginData = User & { token: string }
-// export type AuthResponse = Pick<User, 'id' | 'email'| 'name'> & { accessToken: string, refreshToken: string }
 export type AuthResponse = User & { accessToken: string, refreshToken: string }
 
 export const API_URL = 'http://localhost:8000/api'
 
 const baseQuery = fetchBaseQuery({
   baseUrl: API_URL,
-  // credentials: 'include',
+  credentials: 'include',
   // prepareHeaders: (headers) => {
   //   headers.set('authorization', `Bearer ${localStorage.getItem('token')}`)
   //   return headers

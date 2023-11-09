@@ -6,6 +6,6 @@ authMiddleware.startListening({
   matcher: apiAuth.endpoints.login.matchFulfilled,
   effect: async (action, api) => {
     api.cancelActiveListeners()
-    action.payload.token && localStorage.setItem('token', action.payload.token)
+    action.payload.accessToken && localStorage.setItem('token', action.payload.accessToken)
   },
 })
