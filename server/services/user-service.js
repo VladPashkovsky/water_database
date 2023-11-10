@@ -86,6 +86,7 @@ class UserService {
   }
 
   //==============================================================================================
+
   async exit(refreshToken) {
     const token = await tokenService.removeToken(refreshToken)
     return token

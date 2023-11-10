@@ -1,13 +1,14 @@
 export interface User {
-  id?: string,
-  email?: string,
-  password?: string,
-  name?: string,
+  id: string,
+  email: string,
+  password: string,
+  name: string,
+  user?: string | null,
   createdProduct?: Water[],
   Token?: Token[]
 }
 
-export interface Water {
+export interface Water  {
   id: string,
   brand: string,
   description: string,
@@ -18,7 +19,7 @@ export interface Water {
   userId: string
 }
 
-export interface Token {
+export interface Token  {
   userId: string,
   refreshToken: string,
   user: User

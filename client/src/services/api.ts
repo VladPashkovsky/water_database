@@ -40,7 +40,7 @@ export const apiAuth = createApi({
       invalidatesTags: ['Auth'],
     }),
     current: build.query<AuthResponse, void>({
-      query: () => ({ url: '/users/current' }),
+      query: () => ({ url: '/users/refresh' }),
       providesTags: ['Auth'],
     }),
   }),

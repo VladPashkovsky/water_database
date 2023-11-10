@@ -20,15 +20,15 @@ export const authSlice = createSlice({
   },
   extraReducers: (builder) => {
     builder
-      .addMatcher(apiAuth.endpoints.login.matchFulfilled, (state, action: PayloadAction<AuthResponse>) => {
+      .addMatcher(apiAuth.endpoints.login.matchFulfilled, (state, action) => {
         state.user = action.payload
         state.isActivated = true
       })
-      .addMatcher(apiAuth.endpoints.register.matchFulfilled, (state, action: PayloadAction<AuthResponse>) => {
+      .addMatcher(apiAuth.endpoints.register.matchFulfilled, (state, action) => {
         state.user = action.payload
         state.isActivated = true
       })
-      .addMatcher(apiAuth.endpoints.current.matchFulfilled, (state, action: PayloadAction<AuthResponse>) => {
+      .addMatcher(apiAuth.endpoints.current.matchFulfilled, (state, action) => {
         state.user = action.payload
         state.isActivated = true
       })

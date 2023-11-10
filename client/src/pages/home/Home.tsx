@@ -7,7 +7,7 @@ import type { SizeType } from 'antd/es/config-provider/SizeContext'
 import type { ColumnsType, TableProps } from 'antd/es/table'
 import type { ExpandableConfig, TableRowSelection } from 'antd/es/table/interface'
 import { useCurrentQuery, useGetAllWatersQuery } from '../../services/api.ts'
-import { Water } from '../../models/types.ts'
+import { Water, User } from '../../models/types.ts'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { Paths } from '../../routes/paths.ts'
 import { useAppSelector } from '../../store/hooks.ts'
@@ -25,7 +25,7 @@ import { useTransition, animated } from '@react-spring/web'
 
 const Home: FC = () => {
   const { data, isLoading } = useGetAllWatersQuery()
-  const { user } = useAppSelector(state => state.authReducer)
+  const { user  } = useAppSelector(state => state.authReducer)
   const navigate = useNavigate()
   const location = useLocation()
   // const user = useAppSelector(selectUser)
@@ -60,8 +60,6 @@ const Home: FC = () => {
   const defaultExpandable = { expandedRowRender: (record: Water) => <p>{record.description}</p> }
   const defaultTitle = () => 'Here is title'
   const defaultFooter = () => 'Here is footer'
-
-  console.log(user)
 
 
   type TablePaginationPosition =
@@ -125,7 +123,7 @@ const Home: FC = () => {
       render: () =>
         <Space
           style={{ backgroundColor: '#1677ff', color: 'white', fontWeight: 'lighter', padding: '5px' }}>
-          {user && user.name}
+          {user && user.name }
         </Space>,
     },
     {
