@@ -2,11 +2,13 @@ import React, { FC } from 'react'
 import { Link, useLocation, useNavigate } from 'react-router-dom'
 import { Paths } from '../../routes/paths.ts'
 import './headerTransparent.css'
-import { useAppDispatch } from '../../store/hooks.ts'
+import { useAppDispatch, useAppSelector } from '../../store/hooks.ts'
 import { logout } from '../../store/reducers/authSlice.ts'
+import {User} from '../../models/types.ts'
 
 const HeaderTransparent: FC = () => {
   const dispatch = useAppDispatch()
+  const {user} = useAppSelector(state => state.authReducer)
   const navigate = useNavigate()
   const location = useLocation()
 
@@ -29,9 +31,7 @@ const HeaderTransparent: FC = () => {
             <h2>Water Database</h2>
         </button>
         <ul>
-          {/*<Link to={Paths.home} style={{ textDecoration: 'none' }}>*/}
-          {/*  <li><span> Something </span></li>*/}
-          {/*</Link>*/}
+          <li className='user'><span> {user && (user?.user as unknown as User).name} </span></li>
           <li onClick={logOutClick}><span>Logout</span></li>
         </ul>
       </nav>

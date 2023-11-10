@@ -26,10 +26,12 @@ import { useTransition, animated } from '@react-spring/web'
 const Home: FC = () => {
   const { data, isLoading } = useGetAllWatersQuery()
   const { user  } = useAppSelector(state => state.authReducer)
+  const {waters} = useAppSelector(state => state.waterReducer)
   const navigate = useNavigate()
   const location = useLocation()
   // const user = useAppSelector(selectUser)
 
+  console.log(waters)
 
   const transitions = useTransition(location, {
     from: { opacity: 0 },
@@ -123,7 +125,7 @@ const Home: FC = () => {
       render: () =>
         <Space
           style={{ backgroundColor: '#1677ff', color: 'white', fontWeight: 'lighter', padding: '5px' }}>
-          {user && user.name }
+          {user && (user?.user as unknown as User).name}
         </Space>,
     },
     {

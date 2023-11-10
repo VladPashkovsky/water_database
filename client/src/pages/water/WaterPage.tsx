@@ -10,6 +10,7 @@ import { Paths } from '../../routes/paths.ts'
 import ErrorMessage from '../../components/errorMessage/ErrorMessage'
 import { message } from 'antd'
 import { isErrorWithMessage } from '../../exceptions/isErrorWithMessage.ts'
+import { User } from '../../models/types.ts'
 
 
 const WaterPage: FC = () => {
@@ -72,7 +73,7 @@ const WaterPage: FC = () => {
       <div className='waterForm_basic'>
         <div className='waterForm_container'>
           <Descriptions style={{ margin: '20px' }} title='INFORMATION' layout='vertical' bordered>
-            <Descriptions.Item label='WaterPage ID'>{params.id}</Descriptions.Item>
+            <Descriptions.Item label='Water ID:'>{params.id}</Descriptions.Item>
             <Descriptions.Item label='Brand'>{data && data.brand}</Descriptions.Item>
             <Descriptions.Item label='Description'>{data && data.description}</Descriptions.Item>
             <Descriptions.Item label='Details'>{data && data.details}</Descriptions.Item>
@@ -80,7 +81,7 @@ const WaterPage: FC = () => {
             <Descriptions.Item label='Image'>
               {<img src={data && data.imageUrl} alt='' style={{ height: '30vh' }} />}
             </Descriptions.Item>
-            <Descriptions.Item label='User'>
+            <Descriptions.Item label='User Information:'>
               NAME: {user && user.name} ID: {data && data.userId}
             </Descriptions.Item>
           </Descriptions>

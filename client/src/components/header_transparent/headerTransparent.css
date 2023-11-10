@@ -53,6 +53,10 @@ nav ul li:hover {
     background: rgba(0,0,0, 0.75);
 }
 
+nav .user:hover {
+    background: none;
+}
+
 nav ul li span {
     position: relative;
     display: block;
@@ -64,6 +68,8 @@ nav ul li span {
     text-decoration: none;
 }
 
+
 nav ul li span:hover {
     cursor: pointer;
 }
+
