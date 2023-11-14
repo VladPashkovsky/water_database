@@ -86,11 +86,11 @@ const Home: FC = () => {
       key: 'brand',
       width: '130px',
       // sorter: true,
-      // filters: [
-      //   {text: `text`, value: `value`},
-      //   {text: 'brand', value: 'brand'}
-      // ],
-      // onFilter: (value, record) => record.brand.indexOf(value as string) === 0,
+      filters: [
+        {text: `text`, value: `value`},
+        {text: 'brand', value: 'brand'}
+      ],
+      onFilter: (value, record) => record.brand.indexOf(value as string) === 0,
     },
     {
       title: 'DESCRIPTION',
@@ -121,6 +121,7 @@ const Home: FC = () => {
     {
       title: 'USER',
       dataIndex: 'user',
+      sorter: (a, b) => a.userName.localeCompare(b.userName),
       key: 'user',
       width: '150px',
       render: (value, record, index) =>
@@ -128,6 +129,11 @@ const Home: FC = () => {
           style={{ backgroundColor: '#1677ff', color: 'white', fontWeight: 'lighter', padding: '5px' }}>
           {record.userName}
         </Space>,
+      filters: [
+        // {text: `text`, value: `value`},
+        {text: `${user && (user?.user as unknown as User).name}`, value: `${user && (user?.user as unknown as User).name}`}
+      ],
+      onFilter: (value, record) => record.userName.indexOf(value as string) === 0,
     },
     {
       title: 'Action',

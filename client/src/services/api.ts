@@ -4,7 +4,6 @@ import { User, Water } from '../models/types.ts'
 
 export type UserDataLogin = Pick<User, 'email' | 'password'>
 export type UserData = Omit<User, 'id'>
-type ResponseLoginData = User & { token: string }
 export type AuthResponse = User & { accessToken: string, refreshToken: string }
 
 export const API_URL = 'http://localhost:8000/api'
@@ -29,7 +28,7 @@ export const apiAuth = createApi({
   reducerPath: 'apiAuth',
   baseQuery: baseQuery,
   tagTypes: ['Auth'],
-  refetchOnMountOrArgChange: true,
+  refetchOnMountOrArgChange: false,
   endpoints: (build) => ({
     login: build.mutation<AuthResponse, UserDataLogin>({
       query: (userDataLogin) => ({ url: '/users/login', method: 'POST', body: userDataLogin }),

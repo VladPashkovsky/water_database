@@ -125,7 +125,7 @@ const WaterPage: FC = () => {
                 cancelText='Cancel'
                 style={{ marginTop: '20vh' }}
               >
-                <div style={{ display: 'flex' }}>
+                <div style={{ display: 'flex'}}>
                   <div style={{ margin: 'auto', fontWeight: 'bold' }}>
                     <p style={{ textAlign: 'center' }}> {`The Water with id:`} </p>
                     <p style={{ textAlign: 'center', fontSize: 'large' }}> {`${data && data.id}`} </p>

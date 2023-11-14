@@ -31,7 +31,10 @@ const HeaderTransparent: FC = () => {
             <h2>Water Database</h2>
         </button>
         <ul>
-          <li className='user'><span> {user && (user?.user as unknown as User).name} </span></li>
+          {/*<li className='user'><span> {user && (user?.user as unknown as User).name} </span></li>*/}
+          <button className="shadow__btn">
+            {user && (user?.user as unknown as User).name}
+          </button>
           <li onClick={logOutClick}><span>Logout</span></li>
         </ul>
       </nav>
