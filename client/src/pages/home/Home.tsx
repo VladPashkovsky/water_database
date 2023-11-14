@@ -6,12 +6,11 @@ import { Table, Form, Radio, Space, Switch } from 'antd'
 import type { SizeType } from 'antd/es/config-provider/SizeContext'
 import type { ColumnsType, TableProps } from 'antd/es/table'
 import type { ExpandableConfig, TableRowSelection } from 'antd/es/table/interface'
-import { useCurrentQuery, useGetAllWatersQuery } from '../../services/api.ts'
+import { useCurrentQuery, useGetAllWatersQuery, useGetWaterByIdQuery } from '../../services/api.ts'
 import { Water, User } from '../../models/types.ts'
 import { useLocation, useNavigate, useParams } from 'react-router-dom'
 import { Paths } from '../../routes/paths.ts'
 import { useAppSelector } from '../../store/hooks.ts'
-// import {selectUser} from '../../features/auth/authSlice'
 import { useTransition, animated } from '@react-spring/web'
 
 
@@ -25,13 +24,15 @@ import { useTransition, animated } from '@react-spring/web'
 
 const Home: FC = () => {
   const { data, isLoading } = useGetAllWatersQuery()
+  const params = useParams<{ id: string }>()
+  const { data: dataIdWater } = useGetWaterByIdQuery(params.id || '')
   const { user  } = useAppSelector(state => state.authReducer)
   const {waters} = useAppSelector(state => state.waterReducer)
   const navigate = useNavigate()
   const location = useLocation()
-  // const user = useAppSelector(selectUser)
 
-  console.log(waters)
+  console.log()
+
 
   const transitions = useTransition(location, {
     from: { opacity: 0 },
@@ -122,10 +123,10 @@ const Home: FC = () => {
       dataIndex: 'user',
       key: 'user',
       width: '150px',
-      render: () =>
+      render: (value, record, index) =>
         <Space
           style={{ backgroundColor: '#1677ff', color: 'white', fontWeight: 'lighter', padding: '5px' }}>
-          {user && (user?.user as unknown as User).name}
+          {record.userName}
         </Space>,
     },
     {

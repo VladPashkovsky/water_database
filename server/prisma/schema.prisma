@@ -14,9 +14,11 @@ model User {
   id             String  @id @default(uuid())
   email          String  @unique
   password       String
-  name           String
+  name           String  @unique
   createdProduct Water[]
   Token          Token[]
+
+  @@unique([id, name])
 }
 
 model Water {
@@ -26,8 +28,9 @@ model Water {
   details     String
   price       String
   imageUrl    String
-  user        User   @relation(fields: [userId], references: [id])
   userId      String
+  userName    String
+  user        User   @relation(fields: [userId, userName], references: [id, name])
 }
 
 model Token {

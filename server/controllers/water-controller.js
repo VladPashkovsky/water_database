@@ -36,7 +36,7 @@ class WaterController {
 
       const water = await prisma.water.create({
         data: {
-          ...req.body, userId: req.user.id,
+          ...req.body, userId: req.user.id, userName: req.user.name
         },
       })
 

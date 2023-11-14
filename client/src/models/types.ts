@@ -15,8 +15,9 @@ export interface Water  {
   details: string,
   price: string,
   imageUrl: string,
+  userId: string,
+  userName: string,
   user: User,
-  userId: string
 }
 
 export interface Token  {

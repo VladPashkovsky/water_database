@@ -82,7 +82,7 @@ const WaterPage: FC = () => {
               {<img src={data && data.imageUrl} alt='' style={{ height: '30vh' }} />}
             </Descriptions.Item>
             <Descriptions.Item label='User Information:'>
-              NAME: {user && user.name} ID: {data && data.userId}
+              NAME: {data && data.userName} ID: {data && data.userId}
             </Descriptions.Item>
           </Descriptions>
           <div className='buttons_container'>
@@ -91,7 +91,7 @@ const WaterPage: FC = () => {
                 <ButtonOne onClick={goBack}>Back</ButtonOne>
               </div>
 
-              {(user && user.id) === (data && data.userId)
+              {(user && (user?.user as unknown as User).id) === (data && data.userId)
                 ?
                 (<div>
                   <ButtonOne onClick={goEdit}>Edit</ButtonOne>
@@ -102,7 +102,7 @@ const WaterPage: FC = () => {
                 </div>)
               }
 
-              {(user && user.id) === (data && data.userId)
+              {(user && (user?.user as unknown as User).id) === (data && data.userId)
                 ?
                 <div>
                   <ButtonOne style={{ paddingRight: '8px', paddingLeft: '8px' }}
