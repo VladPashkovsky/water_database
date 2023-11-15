@@ -7,7 +7,8 @@ import { useLoginMutation, UserDataLogin } from '../../services/api.ts'
 import { isErrorWithMessage } from '../../exceptions/isErrorWithMessage.ts'
 import { notification, message } from 'antd'
 import type { NotificationPlacement } from 'antd/es/notification/interface'
-import {useTransition, animated} from '@react-spring/web'
+import {useTransition, animated, useSpring} from '@react-spring/web'
+import NotificationEnter from '../../components/notificationEnter/NotificationEnter.tsx'
 
 
 const Login: FC = () => {
@@ -23,7 +24,13 @@ const Login: FC = () => {
     from: { opacity: 0 },
     enter: { opacity: 1 },
     leave: { opacity: 1 },
-    config: {duration: 500}
+    config: { duration: 500 }
+  })
+
+  const notificationProp = useSpring({
+    x: 0,
+    from: {x: -300},
+    delay: 1500
   })
 
   const [api, contextHolder] = notification.useNotification()
@@ -79,10 +86,13 @@ const Login: FC = () => {
     }
   }
 
-  return ( transitions((style) =>
+  return (transitions((style) =>
     <LayoutEnter>
-      {contextHolder}
+      {/*{contextHolder}*/}
       {contextHolderMessage}
+      <animated.div style={notificationProp}>
+        <NotificationEnter />
+      </animated.div>
       <animated.div style={style}>
         <SignIn
           valueEmail={inputEmailValue}

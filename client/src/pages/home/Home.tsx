@@ -31,8 +31,6 @@ const Home: FC = () => {
   const navigate = useNavigate()
   const location = useLocation()
 
-  console.log()
-
 
   const transitions = useTransition(location, {
     from: { opacity: 0 },

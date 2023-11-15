@@ -1,20 +1,21 @@
 #notificationEnter_container {
-    /*display: flex;*/
+    display: flex;
     position: relative;
     transition: 0.2s;
-    animation: myAnimOpen 1.5s ease 1s 1 normal forwards;
+    /*animation: myAnimOpen 1.5s ease 1s 1 normal forwards;*/
 }
 
-@keyframes myAnimOpen {
-    0% {
-        transform: translateX(-300px);
-    }
-    100% {
-        transform: translateX(0px);
-    }
-}
+/*@keyframes myAnimOpen {*/
+/*    0% {*/
+/*        transform: translateX(-300px);*/
+/*    }*/
+/*    100% {*/
+/*        transform: translateX(0px);*/
+/*    }*/
+/*}*/
 
 #notificationEnter_container.active {
+    display: flex;
     position: relative;
     transition: 0.2s;
     animation: myAnimClose 1s ease 1 normal forwards;
@@ -30,6 +31,7 @@
 }
 
 .notification_form {
+    display: flex;
     position: absolute;
     height: 100vh;
     width: 300px;
@@ -39,6 +41,7 @@
 }
 
 #notificationEnter_container .notification_form i {
+    display: flex;
     position: absolute;
     margin: 30px 210px;
     font-size: 40px;
@@ -53,7 +56,6 @@
 #notificationEnter_container .notification_form .notification_text_area {
     position: absolute;
     color: white;
-    height: 100%;
     font-size: 20px;
     margin-left: 10px;
     margin-right: 10px;
