@@ -1,12 +1,11 @@
-import React, { FC, useState, useEffect } from 'react'
+import React, { FC, useState} from 'react'
 import { useLocation, useNavigate } from 'react-router-dom'
 import SignIn from '../../components/signin/SignIn'
 import LayoutEnter from '../../components/layoutEnter/LayoutEnter'
 import { Paths } from '../../routes/paths.ts'
 import { useLoginMutation, UserDataLogin } from '../../services/api.ts'
 import { isErrorWithMessage } from '../../exceptions/isErrorWithMessage.ts'
-import { notification, message } from 'antd'
-import type { NotificationPlacement } from 'antd/es/notification/interface'
+import { message } from 'antd'
 import {useTransition, animated, useSpring} from '@react-spring/web'
 import NotificationEnter from '../../components/notificationEnter/NotificationEnter.tsx'
 
@@ -33,35 +32,8 @@ const Login: FC = () => {
     delay: 1500
   })
 
-  const [api, contextHolder] = notification.useNotification()
+
   const [messageApi, contextHolderMessage] = message.useMessage()
-
-  useEffect(() => {
-    const openNotification = (placement: NotificationPlacement) => {
-      api.open({
-        message: 'Notification:',
-        description: `
-          Sign in
-          Email: admin@admin.com
-          Password: 123456789
-
-          or Sign up as a new user.
-          `,
-        placement: 'topLeft',
-        className: 'custom-class',
-        duration: 20,
-        style: {
-          animationDelay: '1.5s',
-          width: 300,
-          textAlign: 'center',
-          whiteSpace: 'pre-line',
-          fontWeight: 'bold',
-          borderRadius: 10,
-        },
-      })
-    }
-    openNotification('topLeft')
-  }, [])
 
   const errorMessage = (currentError: string) => {
     messageApi.open({
@@ -88,7 +60,6 @@ const Login: FC = () => {
 
   return (transitions((style) =>
     <LayoutEnter>
-      {/*{contextHolder}*/}
       {contextHolderMessage}
       <animated.div style={notificationProp}>
         <NotificationEnter />

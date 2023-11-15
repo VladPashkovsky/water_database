@@ -14,14 +14,6 @@ import { useAppSelector } from '../../store/hooks.ts'
 import { useTransition, animated } from '@react-spring/web'
 
 
-// interface DataType {
-//   key: number;
-//   name: string;
-//   age: number;
-//   address: string;
-//   description: string;
-// }
-
 const Home: FC = () => {
   const { data, isLoading } = useGetAllWatersQuery()
   const params = useParams<{ id: string }>()
@@ -76,30 +68,19 @@ const Home: FC = () => {
       title: 'ID',
       dataIndex: 'id',
       key: 'id',
-      // sorter: (a, b) => a.age - b.age,
     },
     {
       title: 'BRAND',
       dataIndex: 'brand',
+      sorter: (a, b) => a.brand.localeCompare(b.brand),
       key: 'brand',
       width: '130px',
-      // sorter: true,
-      filters: [
-        {text: `text`, value: `value`},
-        {text: 'brand', value: 'brand'}
-      ],
-      onFilter: (value, record) => record.brand.indexOf(value as string) === 0,
     },
     {
       title: 'DESCRIPTION',
       dataIndex: 'description',
       key: 'description',
     },
-    // {
-    //   title: 'DETAILS',
-    //   dataIndex: 'details',
-    //   key: 'details'
-    // },
     {
       title: 'PRICE',
       dataIndex: 'price',
@@ -128,7 +109,7 @@ const Home: FC = () => {
           {record.userName}
         </Space>,
       filters: [
-        // {text: `text`, value: `value`},
+
         {text: `${user && (user?.user as unknown as User).name}`, value: `${user && (user?.user as unknown as User).name}`}
       ],
       onFilter: (value, record) => record.userName.indexOf(value as string) === 0,
@@ -160,17 +141,6 @@ const Home: FC = () => {
     //   ),
     // },
   ]
-
-  // const data: DataType[] = [];
-  // for (let i = 1; i <= 10; i++) {
-  //   data.push({
-  //     key: i,
-  //     name: 'John Brown',
-  //     age: Number(`${i}2`),
-  //     address: `New York No. ${i} Lake Park`,
-  //     description: `My name is John Brown, I am ${i}2 years old, living in New York No. ${i} Lake Park.`,
-  //   });
-  // }
 
   const handleBorderChange = (enable: boolean) => {
     setBordered(enable)
