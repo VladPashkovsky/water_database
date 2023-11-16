@@ -10,7 +10,7 @@ interface SingUpProps {
   onChangeName: (e: React.ChangeEvent<HTMLInputElement>) => void,
   onChangeEmail: (e: React.ChangeEvent<HTMLInputElement>) => void,
   onChangePass: (e: React.ChangeEvent<HTMLInputElement>) => void,
-  linkTo: string | undefined,
+  linkTo: (e:any) => void,
   disabled?: boolean | undefined,
 }
 
@@ -52,7 +52,7 @@ const Registration: FC<SingUpProps> = ({
             </div>
             <div className='links'>
               {/*<a href='#'> <i className='fa-solid fa-question'></i> Forgot Password</a>*/}
-              <a href={linkTo}> <i className='fa-solid fa-right-to-bracket'></i> Sing In</a>
+              <span onClick={linkTo}> <i className='fa-solid fa-right-to-bracket'></i> Sing In</span>
             </div>
             <div className='inputBox'>
               <input type='submit' value='Sing Up' onClick={onClick} disabled={disabled} />

@@ -70,6 +70,25 @@ const WaterPage: FC = () => {
   return (
     <LayoutBasic>
       {contextHolderMessage}
+
+      <Modal
+        title='DELETE'
+        open={isModalOpen}
+        onOk={goDelete}
+        onCancel={onCancel}
+        okText='OK'
+        cancelText='Cancel'
+        style={{ marginTop: '20vh' }}
+      >
+        <div style={{ display: 'flex' }}>
+          <div style={{ margin: 'auto', fontWeight: 'bold' }}>
+            <p style={{ textAlign: 'center' }}> {`The Water with id:`} </p>
+            <p style={{ textAlign: 'center', fontSize: 'large' }}> {`${data && data.id}`} </p>
+            <p style={{ textAlign: 'center' }}> {`will be deleted`} </p>
+          </div>
+        </div>
+      </Modal>
+
       <div className='waterForm_basic'>
         <div className='waterForm_container'>
           <Descriptions style={{ margin: '20px' }} title='INFORMATION' layout='vertical' bordered>
@@ -116,23 +135,7 @@ const WaterPage: FC = () => {
 
               <ErrorMessage message={error} />
 
-              <Modal
-                title='DELETE'
-                open={isModalOpen}
-                onOk={goDelete}
-                onCancel={onCancel}
-                okText='OK'
-                cancelText='Cancel'
-                style={{ marginTop: '20vh' }}
-              >
-                <div style={{ display: 'flex'}}>
-                  <div style={{ margin: 'auto', fontWeight: 'bold' }}>
-                    <p style={{ textAlign: 'center' }}> {`The Water with id:`} </p>
-                    <p style={{ textAlign: 'center', fontSize: 'large' }}> {`${data && data.id}`} </p>
-                    <p style={{ textAlign: 'center' }}> {`will be deleted`} </p>
-                  </div>
-                </div>
-              </Modal>
+
             </div>
           </div>
         </div>

@@ -200,6 +200,10 @@
     color: black;
 }
 
+.content_reg .form .links span:hover {
+    cursor: pointer;
+}
+
 .content_reg .form .inputBox input[type='submit'] {
     background: #444444;
     color: #ffffff;

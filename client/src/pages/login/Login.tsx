@@ -1,5 +1,5 @@
 import React, { FC, useState} from 'react'
-import { useLocation, useNavigate } from 'react-router-dom'
+import { Link, useLocation, useNavigate } from 'react-router-dom'
 import SignIn from '../../components/signin/SignIn'
 import LayoutEnter from '../../components/layoutEnter/LayoutEnter'
 import { Paths } from '../../routes/paths.ts'
@@ -58,6 +58,11 @@ const Login: FC = () => {
     }
   }
 
+  const linkTo = (e: any) => {
+    e.preventDefault()
+    navigate(`${Paths.signup}`)
+  }
+
   return (transitions((style) =>
     <LayoutEnter>
       {contextHolderMessage}
@@ -70,7 +75,7 @@ const Login: FC = () => {
           onChangeEmail={(event) => setInputEmailValue(event.target.value)}
           valuePass={inputPassValue}
           onChangePass={(event) => setInputPassValue(event.target.value)}
-          linkTo={Paths.signup}
+          linkTo={linkTo}
           onKeyDown={(event) => {
             if (event.key === 'Enter') {
               sendLoginData(currentUserData)

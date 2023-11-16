@@ -7,7 +7,8 @@ interface SingInProps {
   onKeyDown: (e: React.KeyboardEvent<HTMLInputElement>) => void,
   onChangeEmail: (e: React.ChangeEvent<HTMLInputElement>) => void,
   onChangePass: (e: React.ChangeEvent<HTMLInputElement>) => void,
-  linkTo: string | undefined,
+  // linkTo: string | undefined,
+  linkTo: (e: any) => void,
   onClick: (data: any) => void
 }
 
@@ -33,7 +34,7 @@ const SignIn: FC<SingInProps> = ({ onKeyDown, valueEmail, onChangeEmail, valuePa
             </div>
             <div className='links'>
               <a href='#'> <i className='fa-solid fa-question'></i> Forgot Password</a>
-              <a href={linkTo}> <i className='fa-solid fa-user-plus'></i> Sing Up</a>
+              <span onClick={linkTo}> <i className='fa-solid fa-user-plus'></i> Sing Up</span>
             </div>
             <div className='inputBox'>
               <input type='submit' value='Sing In' onClick={onClick} />
