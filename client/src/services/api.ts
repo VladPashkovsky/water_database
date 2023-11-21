@@ -6,7 +6,7 @@ export type UserDataLogin = Pick<User, 'email' | 'password'>
 export type UserData = Omit<User, 'id'>
 export type AuthResponse = User & { accessToken: string, refreshToken: string }
 
-export const API_URL = 'http://localhost:8000/api'
+export const API_URL = "https://water-database.vercel.app/api"
 
 const baseQuery = fetchBaseQuery({
   baseUrl: API_URL,
