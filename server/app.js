@@ -17,13 +17,13 @@ app.use(logger('dev'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
-app.use(cors({ credentials: true, origin: process.env.CLIENT_URL }))
+// app.use(cors({ credentials: true, origin: process.env.CLIENT_URL }))
+app.use(cors(allowCors()))
 
 app.use('/api/users', usersRouter)
 app.use('/api/waters', watersRouter)
 
 app.use(errorMiddleware)
-app.use(allowCors)
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`)
