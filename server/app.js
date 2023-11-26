@@ -23,6 +23,7 @@ app.use('/api/users', usersRouter)
 app.use('/api/waters', watersRouter)
 
 app.use(errorMiddleware)
+app.use(allowCors)
 
 app.listen(PORT, () => {
   console.log(`App listening on port ${PORT}`)
