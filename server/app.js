@@ -17,7 +17,7 @@ app.use(logger('dev'))
 app.use(express.json())
 app.use(express.urlencoded({ extended: false }))
 app.use(cookieParser())
-app.use(cors({ credentials: true, origin: process.env.CLIENT_URL }))
+app.use(cors({ credentials: true, origin: [process.env.CLIENT_URL, 'https://water-database-vj23.vercel.app'] }))
 
 app.use('/api/users', usersRouter)
 app.use('/api/waters', watersRouter)
