@@ -3,6 +3,7 @@ const cookieParser = require('cookie-parser')
 const logger = require('morgan')
 const cors = require('cors')
 const errorMiddleware = require('./middlewares/error-middleware')
+const allowCors = require('/middlewares/allowCors-middleware')
 require('dotenv').config()
 
 const PORT = process.env.PORT || 8000
@@ -21,6 +22,7 @@ app.use(cors({ credentials: true, origin: [process.env.CLIENT_URL, 'https://wate
 app.use('/api/users', usersRouter)
 app.use('/api/waters', watersRouter)
 
+app.use(allowCors)
 app.use(errorMiddleware)
 
 app.listen(PORT, () => {
