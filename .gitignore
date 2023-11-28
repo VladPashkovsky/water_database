@@ -1,6 +1,7 @@
 server/node_modules
 server/.prettierrc.json
 server/.env
+client/.env.local
 client/node_modules
 client/.prettierrc.json
 client/.eslintrc.cjs
