@@ -14,7 +14,7 @@ interface SingInProps {
 
 const SignIn: FC<SingInProps> = ({ onKeyDown, valueEmail, onChangeEmail, valuePass, onChangePass, linkTo, onClick }) => {
   return (
-    <div className='container'>
+    <div className='container_signin'>
       <div className='box'>
         {/*<div className='cover'></div>*/}
         <div className='shadow'></div>

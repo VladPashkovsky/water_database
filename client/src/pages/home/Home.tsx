@@ -196,7 +196,7 @@ const Home: FC = () => {
 
   const scroll: { x?: number | string; y?: number | string } = {}
   if (yScroll) {
-    scroll.y = 600
+    scroll.y = 550
   }
   if (xScroll) {
     scroll.x = '100vw'
@@ -358,7 +358,7 @@ const Home: FC = () => {
       {/*  }}*/}
       {/*/>*/}
 
-    </LayoutBasic>,
+    </LayoutBasic>
   ))
 }
 

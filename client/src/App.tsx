@@ -1,4 +1,3 @@
-import './App.css'
 import { createBrowserRouter, RouterProvider } from 'react-router-dom'
 import { Paths } from './routes/paths.ts'
 import Login from './pages/login/Login'
@@ -10,6 +9,7 @@ import AddWater from './pages/addWater/AddWater'
 import Status from './pages/status/Status'
 import WaterPage from './pages/water/WaterPage'
 import WaterEdit from './pages/waterEdit/WaterEdit'
+import './App.css'
 
 
 const router = createBrowserRouter([
